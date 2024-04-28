@@ -1,0 +1,21 @@
+.title {
+    border-radius: .5rem;
+}
+
+.link-title {
+    text-decoration: none;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+#quantity-error {
+    display: none;
+    color: red;
+}
+
+h2 {
+    text-align: center;
+    padding: 20px 0;
+}
