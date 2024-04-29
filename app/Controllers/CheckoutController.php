@@ -63,8 +63,6 @@ class CheckoutController extends Controller
             $checkoutProducts->rows[$key]->checkoutProductsTaxes = $checkoutProductsTaxes;
         }
 
-        // Functions::dd($checkout);
-
         parent::render('checkout/view', [
             'checkout' => $checkout,
             'checkoutProducts' => $checkoutProducts

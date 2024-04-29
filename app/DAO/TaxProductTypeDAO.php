@@ -43,7 +43,8 @@ class TaxProductTypeDAO extends DAO
                 *
             FROM tax_product_type
             INNER JOIN tax ON tax.id = tax_product_type.id_tax
-            WHERE id_product_type = :id'
+            WHERE id_product_type = :id
+            AND tax.status = 1'
         );
         $query->bindValue(':id', $id);
         $query->execute();

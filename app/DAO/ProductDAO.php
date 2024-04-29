@@ -3,6 +3,7 @@
 namespace App\Dao;
 
 use PDO;
+use App\Dao\DAO;
 use App\Models\ProductModel;
 
 class ProductDAO extends DAO
@@ -29,6 +30,9 @@ class ProductDAO extends DAO
                 product
             LEFT JOIN
                 product_type ON product.id_product_type = product_type.id
+            WHERE
+                product.status = 1
+                AND product_type.status = 1
             ORDER BY
                 id ASC'
         );
@@ -89,6 +93,22 @@ class ProductDAO extends DAO
         $query->bindValue(':name', $product->name);
         $query->bindValue(':value', $product->value);
         $query->bindValue('id', $product->id);
+
+        $query->execute();
+    }
+
+    /**
+     * Deleta um produto específico do banco de dados
+     * @param int $id
+     */
+    public function delete(int $id)
+    {
+        $query = $this->connection->prepare(
+            'UPDATE product SET
+                status = 0
+            WHERE id = :id'
+        );
+        $query->bindValue(':id', $id);
 
         $query->execute();
     }

@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS product_type (
   id SERIAL NOT NULL PRIMARY KEY,
-  name character varying(50) COLLATE pg_catalog."default" NOT NULL
+  name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+  status smallint NOT NULL DEFAULT 1
 ) TABLESPACE pg_default;
 
 ALTER TABLE
@@ -11,6 +12,7 @@ CREATE TABLE IF NOT EXISTS product (
   id_product_type integer NOT NULL,
   name character varying(50) COLLATE pg_catalog."default" NOT NULL,
   value numeric(10, 2) NOT NULL,
+  status smallint NOT NULL DEFAULT 1,
   CONSTRAINT product_product_type FOREIGN KEY (id_product_type) REFERENCES product_type (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE
 ) TABLESPACE pg_default;
 
@@ -20,7 +22,8 @@ ALTER TABLE
 CREATE TABLE IF NOT EXISTS tax (
   id SERIAL NOT NULL PRIMARY KEY,
   name character varying(50) COLLATE pg_catalog."default" NOT NULL,
-  value numeric(5, 2)
+  value numeric(5, 2),
+  status smallint NOT NULL DEFAULT 1
 ) TABLESPACE pg_default;
 
 ALTER TABLE

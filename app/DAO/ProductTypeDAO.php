@@ -23,6 +23,7 @@ class ProductTypeDAO extends DAO
     {
         $query = $this->connection->prepare(
             'SELECT * FROM product_type
+            WHERE status = 1
             ORDER BY id ASC'
         );
         $query->execute();
@@ -82,5 +83,21 @@ class ProductTypeDAO extends DAO
         $query->execute();
 
         return $productType->id;
+    }
+
+    /**
+     * Deleta um tipo de produto específico do banco de dados
+     * @param int $id
+     */
+    public function delete(int $id)
+    {
+        $query = $this->connection->prepare(
+            'UPDATE product_type SET
+                status = 0
+            WHERE id = :id'
+        );
+        $query->bindValue(':id', $id);
+
+        $query->execute();
     }
 }

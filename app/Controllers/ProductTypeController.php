@@ -22,17 +22,6 @@ class ProductTypeController extends Controller
     }
 
     /**
-     * Método responsável por exibir a página inicial de listagem
-     */
-    public static function index()
-    {
-        $productType = new ProductTypeModel();
-        $productType->getAllRows();
-
-        parent::render('product-type/list', $productType);
-    }
-
-    /**
      * Método responsável por exibir a página de cadastro ou edição
      */
     public static function form()
@@ -87,5 +76,18 @@ class ProductTypeController extends Controller
         }
 
         header('Location: /');
+    }
+
+    /**
+     * Método responsável por deletar um tipo de produto
+     */
+    public static function delete()
+    {
+        $productType = new ProductTypeModel();
+
+        $productType->delete($_GET['id']);
+
+        $controller = new productTypeController();
+        $controller->returnJson(['success' => true]);
     }
 }

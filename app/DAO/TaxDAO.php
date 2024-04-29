@@ -23,6 +23,7 @@ class TaxDAO extends DAO
     {
         $query = $this->connection->prepare(
             'SELECT * FROM tax
+            WHERE status = 1
             ORDER BY id ASC'
         );
         $query->execute();
@@ -58,7 +59,8 @@ class TaxDAO extends DAO
                 tax.*
             FROM tax_product_type
             INNER JOIN tax ON tax.id = tax_product_type.id_tax
-            WHERE id_product_type = :id'
+            WHERE id_product_type = :id
+                AND tax.status = 1'
         );
         $query->bindValue(':id', $id);
         $query->execute();
@@ -99,6 +101,22 @@ class TaxDAO extends DAO
         $query->bindValue(':name', $product->name);
         $query->bindValue(':value', $product->value);
         $query->bindValue('id', $product->id);
+
+        $query->execute();
+    }
+
+    /**
+     * Deleta um imposto específico do banco de dados
+     * @param int $id
+     */
+    public function delete(int $id)
+    {
+        $query = $this->connection->prepare(
+            'UPDATE tax SET
+                status = 0
+            WHERE id = :id'
+        );
+        $query->bindValue(':id', $id);
 
         $query->execute();
     }

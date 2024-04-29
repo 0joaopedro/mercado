@@ -25,6 +25,12 @@ class ProductTypeModel extends Model
     public $name;
 
     /**
+     * Status do tipo do produto
+     * @var int
+     */
+    public $status;
+
+    /**
      * Declara o objeto model para ser utilizado ao longo da classe
      */
     public function __construct()
@@ -59,5 +65,14 @@ class ProductTypeModel extends Model
     public function getAllRows()
     {
         $this->rows = $this->dao->select();
+    }
+
+    /**
+     * Método responsável por deletar um tipo de produto específico
+     * @param int $id
+     */
+    public function delete(int $id)
+    {
+        $this->dao->delete($id);
     }
 }

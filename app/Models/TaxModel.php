@@ -31,6 +31,12 @@ class TaxModel extends Model
     public $name;
 
     /**
+     * Status do imposto
+     * @var int
+     */
+    public $status;
+
+    /**
      * Declara o objeto model para ser utilizado ao longo da classe
      */
     public function __construct()
@@ -70,5 +76,14 @@ class TaxModel extends Model
     public function getByTypeProductId(int $id)
     {
         $this->rows = $this->dao->selectByProductTypeId($id);
+    }
+
+    /**
+     * Método responsável por deletar um imposto específico
+     * @param int $id
+     */
+    public function delete(int $id)
+    {
+        $this->dao->delete($id);
     }
 }

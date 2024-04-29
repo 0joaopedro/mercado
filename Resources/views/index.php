@@ -23,6 +23,10 @@
                             <a href="/product/form?id=<?= $product->id ?>" class="btn btn-warning">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
+
+                            <button class="btn btn-danger" onclick='deleteItem("<?= $product->id ?>", "product")'>
+                                <i class="bi bi-trash3"></i>
+                            </button>
                         </div>
                     </li>
                 <?php endforeach; ?>
@@ -50,6 +54,10 @@
                             <a href="/product-type/form?id=<?= $productType->id ?>" class="btn btn-warning">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
+
+                            <button class="btn btn-danger" onclick='deleteItem("<?= $productType->id ?>", "product-type")'>
+                                <i class="bi bi-trash3"></i>
+                            </button>
                         </div>
                     </li>
                 <?php endforeach; ?>
@@ -80,6 +88,10 @@
                             <a href="tax/form?id=<?= $tax->id ?>" class="btn btn-warning">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
+
+                            <button class="btn btn-danger" onclick='deleteItem("<?= $tax->id ?>", "tax")'>
+                                <i class="bi bi-trash3"></i>
+                            </button>
                         </div>
                     </li>
                 <?php endforeach; ?>
@@ -110,3 +122,36 @@
         </div>
     </div>
 </div>
+
+<script>
+    let deleteItem = (id, option) => {
+        Swal.fire({
+            title: "Você tem certeza?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim, deletar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: option + '/delete?id=' + id,
+                    success: function(data) {
+                        if (data.success) {
+                            Swal.fire({
+                                title: "Deletado com sucesso",
+                                icon: "success"
+                            });
+
+                            setTimeout(() => {
+                                swal.close()
+                                window.location.reload();
+                            }, 1000)
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>

@@ -20,17 +20,6 @@ class TaxController extends Controller
     }
 
     /**
-     * Método responsável por exibir a página inicial de listagem
-     */
-    public static function index()
-    {
-        $tax = new TaxModel();
-        $tax->getAllRows();
-
-        parent::render('tax/list', $tax);
-    }
-
-    /**
      * Método responsável por exibir a página de cadastro ou edição
      */
     public static function form()
@@ -58,5 +47,18 @@ class TaxController extends Controller
         $tax->save();
 
         header('Location: /');
+    }
+
+    /**
+     * Método responsável por deletar um imposto
+     */
+    public static function delete()
+    {
+        $product = new TaxModel();
+
+        $product->delete($_GET['id']);
+
+        $controller = new TaxController();
+        $controller->returnJson(['success' => true]);
     }
 }

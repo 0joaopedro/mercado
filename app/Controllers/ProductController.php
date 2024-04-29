@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Dao\ProductDAO;
 use App\Helpers\Functions;
 use App\Models\ProductModel;
 use App\Models\ProductTypeModel;
@@ -19,17 +20,6 @@ class ProductController extends Controller
         header('Content-Type: application/json');
         echo json_encode($arr);
         die();
-    }
-
-    /**
-     * Método responsável por exibir a página inicial de listagem
-     */
-    public static function index()
-    {
-        $product = new ProductModel();
-        $product->getAllRows();
-
-        parent::render('product/list', $product);
     }
 
     /**
@@ -68,5 +58,18 @@ class ProductController extends Controller
         $product->save();
 
         header('Location: /');
+    }
+
+    /**
+     * Método responsável por deletar um produto
+     */
+    public static function delete()
+    {
+        $product = new ProductModel();
+
+        $product->delete($_GET['id']);
+
+        $controller = new productController();
+        $controller->returnJson(['success' => true]);
     }
 }

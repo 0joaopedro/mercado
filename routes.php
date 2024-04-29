@@ -18,17 +18,26 @@ switch ($url) {
     case '/product/save':
         ProductController::save();
         break;
+    case '/product/delete':
+        ProductController::delete();
+        break;
     case '/product-type/form':
         ProductTypeController::form();
         break;
     case '/product-type/save':
         ProductTypeController::save();
         break;
+    case '/product-type/delete':
+        ProductTypeController::delete();
+        break;
     case '/tax/form':
         TaxController::form();
         break;
     case '/tax/save':
         TaxController::save();
+        break;
+    case '/tax/delete':
+        TaxController::delete();
         break;
     case '/checkout/form':
         CheckoutController::form();
